@@ -1,5 +1,7 @@
 # fedora-cyber-bootstrap
 
+disclaimer: this repo is based on srhoe mac-cyber-bootstrap go check it out: https://github.com/srhoe/mac-cyber-bootstrap
+
 A script that turns your Fedora into a for cybersecurity enthusiastic lab
 
 
