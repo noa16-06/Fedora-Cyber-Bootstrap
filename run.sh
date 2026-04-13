@@ -40,6 +40,10 @@ check_root() {
     fi
 }
 
+install_system_tools() {
+    print_status "Install system tools..."
+    sudo apt install -y htop btop wget curl tmux bat ripgrep neovim
+
 install_basic_tools() {
     print_status "Installiere Basis-Tools..."
     sudo apt install -y nmap hydra metasploit-framework \
@@ -131,7 +135,7 @@ show_menu() {
 
 custom_install() {
     echo ""
-    print_warning "Wähle Tools zum Installieren (mehrere mit Leerzeichen):"
+    print_warning "Choose tools to install(mehrere mit Leerzeichen):"
     echo "1) Basis-Tools (nmap, hydra, metasploit, etc.)"
     echo "2) Bonus-Tools (gobuster, nikto, etc.)"
     echo "3) Python-Tools"
@@ -164,7 +168,7 @@ custom_install() {
 main() {
     check_root
     
-    read -p "Möchtest du die Installation starten? (y/n): " answer
+    read -p Do you like to start the installation? (y/n): " answer
     if [[ $answer == 'y' || $answer == 'Y' ]]; then
         show_menu
     else
@@ -173,5 +177,5 @@ main() {
     fi
 }
 
-# Skript starten
+# start the script
 main
