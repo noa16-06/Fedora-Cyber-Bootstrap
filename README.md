@@ -1,212 +1,212 @@
 # 🛡️ Fedora Cyber Bootstrap
 
-Ein vollständiges, idempotentes Setup-Script für Cybersecurity, CTF und Bug Bounty auf Fedora Linux.  
-**Nur für eigene Systeme, autorisierte Tests und CTF-Labs verwenden.**
+A complete, idempotent setup script for Cybersecurity, CTF and Bug Bounty on Fedora Linux.  
+**For use on your own systems, authorized tests and CTF labs only.**
 
 ---
 
-## ⚡ Schnellstart
+## ⚡ Quick Start
 
 ```bash
 chmod +x fedora-cyber-bootstrap.sh
 ./fedora-cyber-bootstrap.sh
 ```
 
-Nach der Installation:
+After installation:
 ```bash
-# Neu einloggen (wichtig für docker-Gruppe & Zsh)
-# Dann:
+# Log back in (important for docker group & Zsh)
+# Then:
 source ~/.zshrc
 ```
 
 ---
 
-## 🔁 Idempotent – sicher mehrfach ausführbar
+## 🔁 Idempotent – Safe to Run Multiple Times
 
-Das Script prüft vor jeder Installation ob eine Komponente bereits vorhanden ist:
+The script checks whether each component is already present before installing it:
 
-| Symbol | Bedeutung |
-|--------|-----------|
-| `[✓]` | Erfolgreich installiert |
-| `[~]` | Bereits vorhanden – übersprungen |
-| `[!]` | Warnung – nicht kritisch |
-| `[x]` | Fehler – Script gestoppt |
+| Symbol | Meaning |
+|--------|---------|
+| `[✓]` | Successfully installed |
+| `[~]` | Already present – skipped |
+| `[!]` | Warning – not critical |
+| `[x]` | Error – script stopped |
 
 ---
 
-## 📦 Was wird installiert?
+## 📦 What Gets Installed?
 
 ### 🖥️ Core / Terminal
-| Tool | Verwendung |
-|------|-----------|
-| `git` | Versionskontrolle |
-| `neovim` | Moderner Texteditor im Terminal |
-| `tmux` | Mehrere Terminal-Sessions in einem Fenster |
-| `fzf` | Fuzzy-Suche im Terminal |
-| `bat` | `cat` mit Syntax-Highlighting |
-| `ripgrep` | Extrem schnelle Dateisuche |
-| `btop / htop` | System-Monitoring |
-| `zsh + Oh-My-Zsh + Powerlevel10k` | Modernes Shell-Setup |
+| Tool | Usage |
+|------|-------|
+| `git` | Version control |
+| `neovim` | Modern terminal text editor |
+| `tmux` | Multiple terminal sessions in one window |
+| `fzf` | Fuzzy search in the terminal |
+| `bat` | `cat` with syntax highlighting |
+| `ripgrep` | Extremely fast file search |
+| `btop / htop` | System monitoring |
+| `zsh + Oh-My-Zsh + Powerlevel10k` | Modern shell setup |
 
 ### 🔍 Recon / Web / Bug Bounty
-| Tool | Verwendung |
-|------|-----------|
-| `subfinder` | Subdomains aufspüren |
-| `httpx` | HTTP-Probing – welche Hosts sind erreichbar |
-| `nuclei` | Automatisierter Schwachstellen-Scanner |
-| `ffuf` | Web-Fuzzing – versteckte Verzeichnisse finden |
-| `gobuster` | Directory-Bruteforce |
-| `feroxbuster` | Rekursiver Directory-Bruteforce |
-| `katana` | Moderner Web-Crawler |
-| `hakrawler` | Web-Crawler für Bug Bounty |
-| `waybackurls` | Alte URLs aus dem Wayback Machine holen |
-| `assetfinder` | Subdomains und Assets finden |
-| `gau` | Alle bekannten URLs einer Domain |
-| `httprobe` | Prüft welche Hosts HTTP/HTTPS haben |
-| `wafw00f` | Web Application Firewall erkennen |
-| `naabu` | Schneller Port-Scanner |
-| `dnsx` | DNS-Toolkit für Recon |
-| `theharvester` | E-Mails, Domains aus öffentlichen Quellen |
+| Tool | Usage |
+|------|-------|
+| `subfinder` | Subdomain enumeration |
+| `httpx` | HTTP probing – find which hosts are reachable |
+| `nuclei` | Automated vulnerability scanner |
+| `ffuf` | Web fuzzing – find hidden directories |
+| `gobuster` | Directory brute-force |
+| `feroxbuster` | Recursive directory brute-force |
+| `katana` | Modern web crawler |
+| `hakrawler` | Web crawler for bug bounty |
+| `waybackurls` | Fetch old URLs from the Wayback Machine |
+| `assetfinder` | Find subdomains and assets |
+| `gau` | Fetch all known URLs for a domain |
+| `httprobe` | Check which hosts have HTTP/HTTPS |
+| `wafw00f` | Web Application Firewall detection |
+| `naabu` | Fast port scanner |
+| `dnsx` | DNS toolkit for recon |
+| `theharvester` | Gather emails and domains from public sources |
 
 ### 🔒 Scanning / Exploitation
-| Tool | Verwendung |
-|------|-----------|
-| `nmap` | Netzwerk-Scanner, der Klassiker |
-| `masscan` | Extrem schneller Port-Scanner |
-| `sqlmap` | SQL-Injection Erkennung und Ausnutzung |
-| `nikto` | Webserver-Scanner |
-| `wpscan` | WordPress-Schwachstellen-Scanner |
-| `mitmproxy` | Man-in-the-Middle Proxy |
+| Tool | Usage |
+|------|-------|
+| `nmap` | Network scanner – the classic |
+| `masscan` | Extremely fast port scanner |
+| `sqlmap` | SQL injection detection and exploitation |
+| `nikto` | Web server scanner |
+| `wpscan` | WordPress vulnerability scanner |
+| `mitmproxy` | Man-in-the-middle proxy |
 
-### 🔑 Passwörter / Cracking
-| Tool | Verwendung |
-|------|-----------|
-| `hydra` | Brute-Force Login-Angriffe |
-| `john` | Passwort-Cracking aus Hashes |
-| `hashcat` | GPU-basiertes Passwort-Cracking |
-| `hcxtools` | WLAN-Handshakes für hashcat vorbereiten |
-| `kerbrute` | Kerberos-Bruteforce für Active Directory |
+### 🔑 Passwords / Cracking
+| Tool | Usage |
+|------|-------|
+| `hydra` | Brute-force login attacks |
+| `john` | Password cracking from hashes |
+| `hashcat` | GPU-based password cracking |
+| `hcxtools` | Prepare WLAN handshakes for hashcat |
+| `kerbrute` | Kerberos brute-force for Active Directory |
 
 ### 🏢 Active Directory / Windows
-| Tool | Verwendung |
-|------|-----------|
-| `impacket` | Python-Tools für Windows-Protokolle |
-| `gitleaks` | Secrets und API-Keys in Git-Repos finden |
-| `semgrep` | Statische Code-Analyse auf Schwachstellen |
-| `PowerSploit` | PowerShell Post-Exploitation Framework |
-| `Responder` | LLMNR/NBT-NS Poisoning |
-| `PrivescCheck` | Windows Privilege Escalation Checks |
-| `PEASS-ng` | Linux/Windows Privilege Escalation Scripts |
+| Tool | Usage |
+|------|-------|
+| `impacket` | Python tools for Windows protocols |
+| `gitleaks` | Find secrets and API keys in Git repos |
+| `semgrep` | Static code analysis for vulnerabilities |
+| `PowerSploit` | PowerShell post-exploitation framework |
+| `Responder` | LLMNR/NBT-NS poisoning |
+| `PrivescCheck` | Windows privilege escalation checks |
+| `PEASS-ng` | Linux/Windows privilege escalation scripts |
 
-### 🌐 Netzwerk
-| Tool | Verwendung |
-|------|-----------|
-| `tcpdump` | Netzwerktraffic mitschneiden |
-| `wireshark` | Netzwerktraffic grafisch analysieren |
-| `socat / netcat` | Netzwerkverbindungen, Reverse Shells |
+### 🌐 Network
+| Tool | Usage |
+|------|-------|
+| `tcpdump` | Capture network traffic |
+| `wireshark` | Graphical network traffic analysis |
+| `socat / netcat` | Network connections, reverse shells |
 
 ### 🖱️ GUI Apps (Flatpak)
-| App | Verwendung |
-|-----|-----------|
-| `VSCode` | Code-Editor |
-| `Obsidian` | Notizen und Dokumentation |
+| App | Usage |
+|-----|-------|
+| `VSCode` | Code editor |
+| `Obsidian` | Notes and documentation |
 | `Firefox` | Browser |
-| `Wireshark` | Netzwerkanalyse |
-| `Discord / Signal / Telegram` | Kommunikation |
-| `LibreOffice` | Office Suite |
+| `Wireshark` | Network analysis |
+| `Discord / Signal / Telegram` | Communication |
+| `LibreOffice` | Office suite |
 
 ### 📚 Wordlists & Repos
-| Sammlung | Verwendung |
-|----------|-----------|
-| `SecLists` | Größte Wordlist-Sammlung |
-| `PayloadsAllTheThings` | Payloads für alle Angriffstechniken |
-| `nuclei-templates` | Templates für den Nuclei-Scanner |
-| `fuzzing-templates` | Fuzzing-Templates von ProjectDiscovery |
-| `Gf-Patterns` | Grep-Patterns für interessante URL-Parameter |
-| `RobotsDisallowed` | Häufige Pfade aus robots.txt |
-| `XSStrike` | XSS-Schwachstellen finden |
+| Collection | Usage |
+|------------|-------|
+| `SecLists` | Largest wordlist collection |
+| `PayloadsAllTheThings` | Payloads for all attack techniques |
+| `nuclei-templates` | Templates for the Nuclei scanner |
+| `fuzzing-templates` | Fuzzing templates by ProjectDiscovery |
+| `Gf-Patterns` | Grep patterns for interesting URL parameters |
+| `RobotsDisallowed` | Common paths from robots.txt |
+| `XSStrike` | Find XSS vulnerabilities |
 
 ---
 
-## 📁 Ordnerstruktur
+## 📁 Directory Structure
 
 ```
 ~/
-├── labs/          → CTF-Übungen und eigene Projekte
-├── tools/         → Geklonte Security-Tools
-├── wordlists/     → SecLists und andere Wordlists
-├── reports/       → Eigene Berichte
+├── labs/          → CTF exercises and personal projects
+├── tools/         → Cloned security tools
+├── wordlists/     → SecLists and other wordlists
+├── reports/       → Personal reports
 └── screenshots/   → Screenshots
 ```
 
 ---
 
-## 🐚 Shell-Aliases
+## 🐚 Shell Aliases
 
-Nach der Installation sind folgende Aliases verfügbar:
+The following aliases are available after installation:
 
 ```bash
 ll          # ls -lah
 ctf         # cd ~/labs
 tools       # cd ~/tools
 wordlists   # cd ~/wordlists
-ports       # ss -tulpn (offene Ports anzeigen)
-myip        # Eigene öffentliche IPv4 anzeigen
-myip6       # Eigene öffentliche IPv6 anzeigen
-grepip      # IPs aus Text filtern
-pyserver    # Python HTTP-Server auf Port 8000
-dockerps    # Docker Container übersichtlich anzeigen
-reload      # Shell-Config neu laden
+ports       # ss -tulpn (show open ports)
+myip        # Show your public IPv4 address
+myip6       # Show your public IPv6 address
+grepip      # Filter IPs from text
+pyserver    # Python HTTP server on port 8000
+dockerps    # Display Docker containers clearly
+reload      # Reload shell config
 ```
 
 ---
 
-## 🔧 Manuell zu installierende Tools
+## 🔧 Tools to Install Manually
 
-Einige Tools werden bewusst nicht automatisch installiert:
+Some tools are intentionally not installed automatically:
 
-| Tool | Grund | Link |
-|------|-------|------|
-| **Burp Suite** | Manuelle Installation empfohlen | [portswigger.net](https://portswigger.net/burp) |
-| **BloodHound** | GUI-Setup erforderlich | [github.com/BloodHoundAD](https://github.com/BloodHoundAD/BloodHound) |
-| **Maltego** | Kostenlose Registrierung nötig | [maltego.com](https://www.maltego.com) |
-| **Tor Browser** | Über Flatpak oder torproject.org | [torproject.org](https://www.torproject.org) |
-| **Nessus** | Kommerzielle Lizenz nötig | [tenable.com](https://www.tenable.com/products/nessus) |
+| Tool | Reason | Link |
+|------|--------|------|
+| **Burp Suite** | Manual installation recommended | [portswigger.net](https://portswigger.net/burp) |
+| **BloodHound** | Requires GUI setup | [github.com/BloodHoundAD](https://github.com/BloodHoundAD/BloodHound) |
+| **Maltego** | Free registration required | [maltego.com](https://www.maltego.com) |
+| **Tor Browser** | Via Flatpak or torproject.org | [torproject.org](https://www.torproject.org) |
+| **Nessus** | Commercial license required | [tenable.com](https://www.tenable.com/products/nessus) |
 
 ---
 
-## ✅ Nach der Installation prüfen
+## ✅ Post-Installation Checks
 
 ```bash
-# Tools testen
+# Test tools
 which nmap ffuf nuclei subfinder httpx sqlmap
 
-# Docker prüfen
+# Check Docker
 docker --version
 docker ps
 
-# Go-Tools prüfen
+# Check Go tools
 ls ~/go/bin/
 
-# Wordlists prüfen
+# Check wordlists
 ls ~/wordlists/SecLists/
 ```
 
 ---
 
-## ⚠️ Rechtlicher Hinweis
+## ⚠️ Legal Notice
 
-Dieses Script installiert Tools die für offensive Sicherheitstests gedacht sind.  
-**Verwende diese Tools ausschließlich:**
-- Auf eigenen Systemen
-- In autorisierten Pentests (schriftliche Genehmigung!)
-- In CTF-Labs und Übungsumgebungen (HackTheBox, TryHackMe, etc.)
+This script installs tools intended for offensive security testing.  
+**Use these tools exclusively:**
+- On your own systems
+- In authorized penetration tests (written permission required!)
+- In CTF labs and practice environments (HackTheBox, TryHackMe, etc.)
 
-Der Missbrauch dieser Tools ist illegal und strafbar.
+Misuse of these tools is illegal and punishable by law.
 
 ---
 
-## 🤝 Getestet auf
+## 🤝 Tested On
 
 - Fedora 40
 - Fedora 41
