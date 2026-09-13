@@ -9,7 +9,9 @@ A complete, idempotent setup script for Cybersecurity, CTF and Bug Bounty on Fed
 
 ```bash
 chmod +x fedora-cyber-bootstrap.sh
-./fedora-cyber-bootstrap.sh
+./fedora-cyber-bootstrap.sh            # install / update everything
+./fedora-cyber-bootstrap.sh --check    # only report status, change nothing
+./fedora-cyber-bootstrap.sh --help     # show help
 ```
 
 After installation:
@@ -19,16 +21,34 @@ After installation:
 source ~/.zshrc
 ```
 
+Everything is installed under a single base directory (`~/Security` by default).
+Override it with `SEC_BASE`:
+```bash
+SEC_BASE=~/pentest ./fedora-cyber-bootstrap.sh
+```
+
 ---
 
-## 🔁 Idempotent – Safe to Run Multiple Times
+## 🔁 Idempotent & Self-Updating – Safe to Run Multiple Times
 
-The script checks whether each component is already present before installing it:
+The script checks whether each component is already present. Anything missing is
+installed cleanly; **anything already installed is updated** on every run:
+
+- System packages: `dnf upgrade --refresh`
+- Flatpak apps: `flatpak update`
+- Go tools: re-run `go install ...@latest` (pulls the newest version)
+- Python tools: `pipx upgrade`
+- Cloned repos & wordlists: `git pull`
+- Nuclei templates: `nuclei -update-templates`
+
+All downloads go through a temporary directory that is removed automatically when
+the script exits (even on error), so no leftovers are left in `/tmp`.
 
 | Symbol | Meaning |
 |--------|---------|
 | `[✓]` | Successfully installed |
 | `[~]` | Already present – skipped |
+| `↻` | Already present – updated to the latest version |
 | `[!]` | Warning – not critical |
 | `[x]` | Error – script stopped |
 
@@ -130,13 +150,17 @@ The script checks whether each component is already present before installing it
 
 ## 📁 Directory Structure
 
+Everything lives under one base directory (`~/Security` by default, override with `SEC_BASE`):
+
 ```
-~/
+~/Security/
 ├── labs/          → CTF exercises and personal projects
-├── tools/         → Cloned security tools
+├── tools/         → Cloned security tools (+ nikto)
 ├── wordlists/     → SecLists and other wordlists
 ├── reports/       → Personal reports
-└── screenshots/   → Screenshots
+├── screenshots/   → Screenshots
+├── scans/nmap/    → Scan results
+└── bin/           → Own binaries: wpscan, nikto, feroxbuster, ffuf fallback
 ```
 
 ---
@@ -147,9 +171,9 @@ The following aliases are available after installation:
 
 ```bash
 ll          # ls -lah
-ctf         # cd ~/labs
-tools       # cd ~/tools
-wordlists   # cd ~/wordlists
+ctf         # cd ~/Security/labs
+tools       # cd ~/Security/tools
+wordlists   # cd ~/Security/wordlists
 ports       # ss -tulpn (show open ports)
 myip        # Show your public IPv4 address
 myip6       # Show your public IPv6 address
@@ -189,8 +213,17 @@ docker ps
 ls ~/go/bin/
 
 # Check wordlists
-ls ~/wordlists/SecLists/
+ls ~/Security/wordlists/SecLists/
+
+# Full status report (installed / missing)
+./fedora-cyber-bootstrap.sh --check
 ```
+
+> **Note:** `sqlmap`, `nikto`, `wpscan` and `theHarvester` are **not** Fedora
+> packages. The script installs them the right way instead: `wpscan` as a Ruby
+> gem (into `~/Security/bin`), `sqlmap` and `theHarvester` via `pipx`, and
+> `nikto` as a git clone symlinked into `~/Security/bin`. `wfuzz` is intentionally
+> dropped (incompatible with Python 3.12+); use `ffuf` / `feroxbuster` instead.
 
 ---
 
